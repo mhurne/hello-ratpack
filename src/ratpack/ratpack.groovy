@@ -1,8 +1,11 @@
+import com.fasterxml.jackson.databind.Module
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.mongodb.ConnectionString
 import com.mongodb.MongoException
 import com.mongodb.WriteConcernResult
 import com.mongodb.async.SingleResultCallback
 import com.mongodb.async.client.MongoCollection
+import com.thehurnes.inject.HelloRatpackModule
 import com.thehurnes.inject.MongoModule
 import org.bson.Document
 import org.bson.types.ObjectId
@@ -14,11 +17,17 @@ import static ratpack.jackson.Jackson.json
 ratpack {
 
     bindings {
-        add MongoModule, {
-            it.connectionString = new ConnectionString("mongodb://localhost:27017/")
-            it.dbName = "hello-ratpack"
+        add MongoModule, { config ->
+            config.connectionString = new ConnectionString("mongodb://localhost:27017/")
+            config.dbName = "hello-ratpack"
         }
+
         add JacksonModule
+        add HelloRatpackModule
+
+        init { ObjectMapper objectMapper, Set<Module> modules ->
+            objectMapper.registerModules(modules)
+        }
     }
 
     handlers {

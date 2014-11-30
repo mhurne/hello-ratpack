@@ -4,9 +4,8 @@ import com.google.inject.Provides
 import com.mongodb.ConnectionString
 import com.mongodb.async.client.MongoClient
 import com.mongodb.async.client.MongoClients
-import com.mongodb.async.client.MongoCollection
+import com.mongodb.async.client.MongoDatabase
 import groovy.transform.CompileStatic
-import org.bson.Document
 import ratpack.guice.ConfigurableModule
 
 import javax.inject.Singleton
@@ -33,8 +32,8 @@ class MongoModule extends ConfigurableModule<Config> {
 
     @Provides
     @Singleton
-    MongoCollection<Document> collection(Config config, MongoClient client) {
-        return client.getDatabase(config.dbName).getCollection("Thing")
+    MongoDatabase db(Config config, MongoClient client) {
+        return client.getDatabase(config.dbName)
     }
 
 }

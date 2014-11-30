@@ -7,8 +7,8 @@ import com.mongodb.async.SingleResultCallback
 import com.mongodb.async.client.MongoCollection
 import com.thehurnes.inject.HelloRatpackModule
 import com.thehurnes.inject.MongoModule
+import com.thehurnes.repositories.ThingRepository
 import org.bson.Document
-import org.bson.types.ObjectId
 import ratpack.jackson.JacksonModule
 
 import static ratpack.groovy.Groovy.ratpack
@@ -65,17 +65,8 @@ ratpack {
             }
         }
 
-        get("things/:id") { MongoCollection<Document> collection ->
-            def id = new ObjectId(pathTokens.get("id"))
-            promise { f ->
-                collection.find(new Document().append('_id', id)).first({ Document thing, MongoException e ->
-                    if (e) {
-                        f.error(e)
-                    } else {
-                        f.success(thing)
-                    }
-                } as SingleResultCallback)
-            }.then { Document thing ->
+        get("things/:id") { ThingRepository thingRepo ->
+            thingRepo.get(pathTokens.get("id")).then { thing ->
                 render json(thing)
             }
         }

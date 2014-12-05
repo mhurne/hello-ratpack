@@ -52,7 +52,7 @@ class ThingsResource implements Action<Chain> {
                     }
 
                     post {
-                        def thing = new Thing(name: "Thing One")
+                        def thing = parse(Thing)
                         thingRepository.save(thing).then {
                             render json(thing)
                         }

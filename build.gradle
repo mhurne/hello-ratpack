@@ -4,10 +4,14 @@ buildscript {
     }
     dependencies {
         classpath "io.ratpack:ratpack-gradle:${ratpackVersion}"
+        classpath "net.saliman:gradle-cobertura-plugin:2.2.5"
+        classpath "org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.0.1"
     }
 }
 
 apply plugin: "io.ratpack.ratpack-groovy"
+apply plugin: "net.saliman.cobertura"
+apply plugin: "com.github.kt3k.coveralls"
 apply plugin: "idea"
 
 repositories {
@@ -34,3 +38,6 @@ dependencies {
         exclude module: "groovy-all"
     }
 }
+
+cobertura.coverageSourceDirs = sourceSets.main.groovy.srcDirs
+cobertura.coverageFormats = ['html', 'xml']

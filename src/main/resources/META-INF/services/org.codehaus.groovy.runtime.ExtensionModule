@@ -1,3 +1,0 @@
-moduleName=hello-ratpack
-moduleVersion=1.0
-staticExtensionClasses=com.thehurnes.groovy.ObjectIdStaticExtension

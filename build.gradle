@@ -23,7 +23,7 @@ dependencies {
 
     compile ratpack.dependency("jackson")
 
-    compile "org.mongodb:driver-async:3.0.0-SNAPSHOT"
+    compile "org.mongodb.morphia:morphia:0.108"
     compile "com.commercehub.jackson:jackson-datatype-mongo:1.1.0"
 
     // Default SLF4J binding.  Note that this is a blocking implementation.

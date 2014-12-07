@@ -1,3 +1,11 @@
 machine:
   java:
     version: oraclejdk8
+
+dependencies:
+  override:
+    - ./gradlew dependencies
+
+test:
+  override:
+    - ./gradlew check
